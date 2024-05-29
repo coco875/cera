@@ -7,22 +7,33 @@ on:
     branches: [ "master" ]
 
 jobs:
-  release:
-    name: release ${{ matrix.target }}
+  release-linux:
+    name: release linux
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        target: [x86_64-pc-windows-msvc, x86_64-unknown-linux-gnu]
     steps:
       - uses: actions/checkout@master
       - uses: dtolnay/rust-toolchain@stable
       - name: Compile
         run: |
-          rustup target add ${{ matrix.target }}
-          cargo build --release --target ${{ matrix.target }}
+          rustup target add x86_64-unknown-linux-gnu
+          cargo build --release --target x86_64-unknown-linux-gnu
       - name: Publish packaged artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.target }}-release
-          path: target/${{ matrix.target }}/release/
+          name: x86_64-unknown-linux-gnu-release
+          path: target/x86_64-unknown-linux-gnu/release/
+  release-windows:
+    name: release windows
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@master
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Compile
+        run: |
+          rustup target add x86_64-pc-windows-msvc
+          cargo build --release --target x86_64-pc-windows-msvc
+      - name: Publish packaged artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: x86_64-pc-windows-msvc-release
+          path: target/x86_64-pc-windows-msvc/release/
