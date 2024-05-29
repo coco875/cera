@@ -66,7 +66,7 @@ impl Parsable for Token {
             return Ok((Some(Self::SpecialChar(special_char)), len));
         }
 
-        Err(TokenParseError::NoMatch(TextPosition { idx: 0 }))
+        return Err(TokenParseError::NoMatch(TextPosition { idx: 0 }));
     }
 }
 
