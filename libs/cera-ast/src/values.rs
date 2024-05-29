@@ -1,11 +1,12 @@
 use crate::{
     expressions::Expression,
     types::{
-        ArrayType, ComptimeFunctionType, ContainerType, ErrorSetType, FloatType, IntType,
-        PointerType, Type,
+        ArrayType, ComptimeFunctionType, ContainerType, ErrorSetType, ErrorUnionType, FloatType,
+        IntType, OptionType, PointerType, Type,
     },
 };
 
+#[derive(Debug, Clone)]
 pub enum Value {
     Float(Float),
     Int(Int),
@@ -21,44 +22,78 @@ pub enum Value {
     Undefined,
 }
 
+impl Value {
+    pub fn get_type(&self) -> Type {
+        match self {
+            Value::Float(Float { float_type, .. }) => todo!(),
+            Value::Int(Int { int_type, .. }) => todo!(),
+            Value::Container(Container { container_type, .. }) => todo!(),
+            Value::Pointer(Pointer { pointer_type, .. }) => todo!(),
+            Value::Error(Error { error_set_type, .. }) => todo!(),
+            Value::ErrorUnion(ErrorUnion {
+                error_union_type, ..
+            }) => todo!(),
+            Value::Option(OptionValue { option_type, .. }) => todo!(),
+            Value::Array(Array { array_type, .. }) => todo!(),
+            Value::Function(Function { function_type, .. }) => {
+                Type::ComptimeFunction(function_type.clone())
+            }
+            Value::Type(_) => Type::Type,
+            Value::Void => Type::Void,
+            Value::Undefined => Type::Undefined,
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
 pub struct Float {
     pub bytes: Box<[u8]>,
     pub float_type: FloatType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Int {
     pub bytes: Box<[u8]>,
     pub int_type: IntType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Container {
     pub bytes: Box<[u8]>,
     pub container_type: ContainerType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Pointer {
     pub bytes: Box<[u8]>,
     pub pointer_type: PointerType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Error {
     pub bytes: Box<[u8]>,
-    pub error_set: ErrorSetType,
+    pub error_set_type: ErrorSetType,
 }
 
+#[derive(Debug, Clone)]
 pub struct ErrorUnion {
-    pub result: Result<Box<Value>, Error>,
+    pub bytes: Box<[u8]>,
+    pub error_union_type: ErrorUnionType,
 }
 
+#[derive(Debug, Clone)]
 pub struct OptionValue {
-    pub value: Option<Box<Value>>,
+    pub bytes: Box<[u8]>,
+    pub option_type: OptionType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Array {
     pub bytes: Box<[u8]>,
     pub array_type: ArrayType,
 }
 
+#[derive(Debug, Clone)]
 pub struct Function {
     pub expression: Expression,
     pub function_type: ComptimeFunctionType,

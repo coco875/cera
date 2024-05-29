@@ -1,8 +1,9 @@
 use crate::{
-    builtin::{BuiltinFunction, EvalExecContext},
+    builtin::{BuiltinFunction, EvalExecScope},
     values::Value,
 };
 
+#[derive(Debug, Clone)]
 pub enum Expression {
     Value(Box<Value>),
     Builtin(BuiltinFunction, Box<[Expression]>),
@@ -12,7 +13,7 @@ pub enum Expression {
 pub struct EvaluationError;
 
 impl Expression {
-    pub fn recursive_eval(&mut self, context: &mut EvalExecContext) -> Result<(), EvaluationError> {
+    pub fn recursive_eval(&mut self, context: &mut EvalExecScope) -> Result<(), EvaluationError> {
         match self {
             Expression::Value(_) => Ok(()),
             Expression::Builtin(builtin, args) => {
@@ -46,9 +47,10 @@ impl Expression {
                 }
             }
             Expression::ExpressionList(expressions) => {
+                let mut context = context.new_scope();
                 let mut errored = false;
                 expressions.iter_mut().for_each(|elem| {
-                    if elem.recursive_eval(context).is_err() {
+                    if elem.recursive_eval(&mut context).is_err() {
                         errored = true;
                     }
                 });
