@@ -1,0 +1,26 @@
+name: generate docs
+
+on:
+  push:
+    branches: [ "master" ]
+
+# Make sure CI fails on all warnings, including Clippy lints
+env:
+    RUSTFLAGS: "-Dwarnings"  
+
+jobs:
+  release:
+    name: generate docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Docs
+        run: |
+          cargo doc --no-deps
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: target/doc
