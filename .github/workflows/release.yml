@@ -21,3 +21,8 @@ jobs:
         run: |
           rustup target add ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
+      - name: Publish packaged artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}-release
+          path: target/${{ matrix.target }}/release/
