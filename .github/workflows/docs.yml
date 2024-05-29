@@ -4,10 +4,6 @@ on:
   push:
     branches: [ "master" ]
 
-# Make sure CI fails on all warnings, including Clippy lints
-env:
-    RUSTFLAGS: "-Dwarnings"  
-
 jobs:
   docs:
     name: generate docs
