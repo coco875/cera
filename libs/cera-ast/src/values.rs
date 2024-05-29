@@ -25,16 +25,16 @@ pub enum Value {
 impl Value {
     pub fn get_type(&self) -> Type {
         match self {
-            Value::Float(Float { float_type: _, .. }) => todo!(),
-            Value::Int(Int { int_type: _, .. }) => todo!(),
-            Value::Container(Container { container_type: _, .. }) => todo!(),
-            Value::Pointer(Pointer { pointer_type: _, .. }) => todo!(),
-            Value::Error(Error { error_set_type: _, .. }) => todo!(),
+            Value::Float(Float { float_type, .. }) => todo!(),
+            Value::Int(Int { int_type, .. }) => todo!(),
+            Value::Container(Container { container_type, .. }) => todo!(),
+            Value::Pointer(Pointer { pointer_type, .. }) => todo!(),
+            Value::Error(Error { error_set_type, .. }) => todo!(),
             Value::ErrorUnion(ErrorUnion {
-                error_union_type: _, ..
+                error_union_type, ..
             }) => todo!(),
-            Value::Option(OptionValue { option_type: _, .. }) => todo!(),
-            Value::Array(Array { array_type: _, .. }) => todo!(),
+            Value::Option(OptionValue { option_type, .. }) => todo!(),
+            Value::Array(Array { array_type, .. }) => todo!(),
             Value::Function(Function { function_type, .. }) => {
                 Type::ComptimeFunction(function_type.clone())
             }

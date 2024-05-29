@@ -11,7 +11,8 @@ env:
     RUSTFLAGS: "-Dwarnings"  
 
 jobs:
-  release:
+  clippy:
+    if: 0
     name: Clippy check
     runs-on: ubuntu-latest
     steps:

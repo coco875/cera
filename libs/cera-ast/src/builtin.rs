@@ -6,13 +6,13 @@ pub enum BuiltinFunction {
 }
 
 impl BuiltinFunction {
-    pub fn try_exec(&self, args: &[&Value], _context: &mut EvalExecScope) -> Option<Value> {
+    pub fn try_exec(&self, args: &[&Value], context: &mut EvalExecScope) -> Option<Value> {
         match self {
             BuiltinFunction::TypeOf => {
                 if args.len() != 1 {
                     return None;
                 }
-                Some(Value::Type(args[0].get_type()))
+                return Some(Value::Type(args[0].get_type()));
             }
         }
     }

@@ -9,7 +9,7 @@ env:
     RUSTFLAGS: "-Dwarnings"  
 
 jobs:
-  release:
+  docs:
     name: generate docs
     runs-on: ubuntu-latest
     steps:
