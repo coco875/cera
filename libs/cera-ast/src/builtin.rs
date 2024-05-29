@@ -3,7 +3,7 @@ use crate::values::Value;
 pub enum BuiltinFunction {}
 
 impl BuiltinFunction {
-    pub fn try_exec(&self, args: &[&Value], context: &mut EvalExecContext) -> Option<Value> {
+    pub fn try_exec(&self, _args: &[&Value], _context: &mut EvalExecContext) -> Option<Value> {
         todo!()
     }
 }
