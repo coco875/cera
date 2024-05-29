@@ -1,4 +1,4 @@
-name: Run test
+name: Clippy check
 
 on:
   push:
@@ -6,13 +6,17 @@ on:
   pull_request:
     branches: [ "master" ]
 
+# Make sure CI fails on all warnings, including Clippy lints
+env:
+    RUSTFLAGS: "-Dwarnings"  
+
 jobs:
   release:
-    name: run test
+    name: Clippy check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: dtolnay/rust-toolchain@stable
-      - name: Test
+      - name: Clippy
         run: |
-          cargo test
+          cargo clippy --all-targets --all-features
