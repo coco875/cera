@@ -66,7 +66,7 @@ impl Parsable for Token {
             return Ok((Some(Self::SpecialChar(special_char)), len));
         }
 
-        return Err(TokenParseError::NoMatch(TextPosition { idx: 0 }));
+        Err(TokenParseError::NoMatch(TextPosition { idx: 0 }))
     }
 }
 
@@ -136,7 +136,7 @@ impl Parsable for Identifier {
         if !((char.is_ascii_alphabetic()) | (char == '_')) {
             return Ok((None, 0));
         }
-        while let Some((idx, char)) = iter.next() {
+        for (idx, char) in iter {
             if !((char.is_ascii_alphanumeric()) | (char == '_')) {
                 return Ok((
                     Some(Identifier {
@@ -166,7 +166,7 @@ impl Parsable for Literal {
             '\"' => {
                 let mut is_next_escaped = false;
 
-                while let Some((idx, char)) = iter.next() {
+                for (idx, char) in iter.by_ref() {
                     if is_next_escaped {
                         is_next_escaped = false;
                         continue;
@@ -204,7 +204,7 @@ impl Parsable for Literal {
                         '.' => {
                             let mut is_prev_e = false;
                             let mut is_float = false;
-                            while let Some((idx_float, char)) = iter.next() {
+                            for (idx_float, char) in iter.by_ref() {
                                 match char {
                                     'e' => {
                                         is_prev_e = true;

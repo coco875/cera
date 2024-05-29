@@ -12,7 +12,7 @@ impl BuiltinFunction {
                 if args.len() != 1 {
                     return None;
                 }
-                return Some(Value::Type(args[0].get_type()));
+                Some(Value::Type(args[0].get_type()))
             }
         }
     }

@@ -251,10 +251,10 @@ pub fn parse_binary(str: &str) -> Result<BigUint, IntParseError> {
     if str.is_empty() {
         return Err(IntParseError::ZeroLength(TextPosition { idx: 0 }));
     }
-    if str.chars().next() == Some('_') {
+    if str.starts_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition { idx: 0 }));
     }
-    if str.chars().next_back() == Some('_') {
+    if str.ends_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition {
             idx: str.len() - 1,
         }));
@@ -271,17 +271,17 @@ pub fn parse_binary(str: &str) -> Result<BigUint, IntParseError> {
             _ => return Err(IntParseError::InvalidChar(TextPosition { idx })),
         }
     }
-    return Ok(output);
+    Ok(output)
 }
 
 pub fn parse_octal(str: &str) -> Result<BigUint, IntParseError> {
     if str.is_empty() {
         return Err(IntParseError::ZeroLength(TextPosition { idx: 0 }));
     }
-    if str.chars().next() == Some('_') {
+    if str.starts_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition { idx: 0 }));
     }
-    if str.chars().next_back() == Some('_') {
+    if str.ends_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition {
             idx: str.len() - 1,
         }));
@@ -304,17 +304,17 @@ pub fn parse_octal(str: &str) -> Result<BigUint, IntParseError> {
             _ => return Err(IntParseError::InvalidChar(TextPosition { idx })),
         }
     }
-    return Ok(output);
+    Ok(output)
 }
 
 pub fn parse_decimal(str: &str) -> Result<BigUint, IntParseError> {
     if str.is_empty() {
         return Err(IntParseError::ZeroLength(TextPosition { idx: 0 }));
     }
-    if str.chars().next() == Some('_') {
+    if str.starts_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition { idx: 0 }));
     }
-    if str.chars().next_back() == Some('_') {
+    if str.ends_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition {
             idx: str.len() - 1,
         }));
@@ -339,17 +339,17 @@ pub fn parse_decimal(str: &str) -> Result<BigUint, IntParseError> {
             _ => return Err(IntParseError::InvalidChar(TextPosition { idx })),
         }
     }
-    return Ok(output);
+    Ok(output)
 }
 
 pub fn parse_hexadecimal(str: &str) -> Result<BigUint, IntParseError> {
     if str.is_empty() {
         return Err(IntParseError::ZeroLength(TextPosition { idx: 0 }));
     }
-    if str.chars().next() == Some('_') {
+    if str.starts_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition { idx: 0 }));
     }
-    if str.chars().next_back() == Some('_') {
+    if str.ends_with('_') {
         return Err(IntParseError::InvalidChar(TextPosition {
             idx: str.len() - 1,
         }));
@@ -380,5 +380,5 @@ pub fn parse_hexadecimal(str: &str) -> Result<BigUint, IntParseError> {
             _ => return Err(IntParseError::InvalidChar(TextPosition { idx })),
         }
     }
-    return Ok(output);
+    Ok(output)
 }

@@ -1,4 +1,4 @@
-use crate::text_region::{Text, TextPosition, TextSpan};
+use crate::text_region::{TextPosition, TextSpan};
 
 pub trait PositionnedErr {
     fn offset(&mut self, offset: usize);
@@ -20,6 +20,7 @@ pub enum ParsingError<T> {
     ZeroLenSkip(TextPosition),
 }
 
+#[allow(clippy::type_complexity)]
 pub fn parse<T: Parsable>(text: &str) -> Result<(Vec<T>, Vec<TextSpan>), ParsingError<T::Error>> {
     let mut output = (Vec::new(), Vec::new());
     let mut curr_start = 0;
